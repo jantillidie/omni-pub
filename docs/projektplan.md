@@ -24,7 +24,7 @@ Die Anwendung erfasst ein Foto der Speisekarte, wertet den Text mittels einer KI
 
 ## Systemarchitektur und Datenfluss Skizze
 
-![[PythonProjektSkizze.excalidraw.png]]
+![Projektskizze](omni-pub-projektskizze.png)
 
 <div style="page-break-after: always;"></div> 
 

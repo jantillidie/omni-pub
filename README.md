@@ -21,7 +21,7 @@ Dieses Projekt entsteht im Rahmen eines 3-wöchigen Zwischenprojekts. Ziel ist e
 ## 🗺️ Systemarchitektur
 
 Die visuelle Projektskizze und der detaillierte Umsetzungsplan liegen im Dokumentations-Ordner:
-👉 `[Zum Projektplan & Systemarchitektur](docs/projektplan.md)`
+👉 [Zum Projektplan & Systemarchitektur](./docs/projektplan.md)
 
 ---
 
