@@ -392,3 +392,4 @@ $RECYCLE.BIN/
 
 # project specific
 queue/
+tmp/
