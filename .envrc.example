@@ -1,0 +1,19 @@
+# this uses 'secret-tool' and is linux/unix specific
+# .envrc files use standard bash/sh syntax, not fish syntax
+# Copy this file to .envrc and fill in your local secrets
+# Run: secret-tool store --label="WP Password" project my_wordpress_site secret wp_password
+
+# ==============================================================================
+# 1. PUBLIC CONFIGURATION (Safe to keep in plaintext inside .envrc)
+# ==============================================================================
+export WP_USERNAME="admin_local"
+export WP_SITE_URL="http://localhost:8080"
+export API_URL="https://api.staging.example.com"
+export LOG_LEVEL="debug"
+
+# ==============================================================================
+# 2. PRIVATE SECRETS (Pulled securely from KeePassXC on the fly)
+# ==============================================================================
+export WP_PASSWORD=$(secret-tool lookup project my_wordpress_site secret wp_password)
+export THIRD_PARTY_API_KEY=$(secret-tool lookup project my_wordpress_site secret api_key)
+
