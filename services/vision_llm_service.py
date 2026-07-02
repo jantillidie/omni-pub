@@ -38,6 +38,7 @@ class VisionLLMService:
                             "Lass menu_items niemals leer."
                             "Bei Angaben wie z.B. 'wahlweise' oder 'Fleisch/vegetarisch' oder 'auch vegetarisch', die Menüs aufteilen: z.B.: 'Braten mit Rotkohl und Kartoffeln (wahlweise Gemüsebratling)' zu 'Braten mit Rotkohl und Kartoffeln' und 'Gemüsebratling mit Rotkohl und Kartoffeln'. "
                             "Bei Angaben wie (vegan o. vegetarisch), Menü aufteilen: z.B.: 'Mac n Cheese mit Salat (vegan)' und 'Mac n Cheese mit Salat (vegetarisch)' "
+                            "Ersetze das 'Kaufmanns-Und' '&' durch ein normales 'und'."
                         )},
 
                         {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{base64_str}"}}
