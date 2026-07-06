@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Tagesmenü Flyer</title>
+        <style>
+            @font-face {
+                font-family: "Rokkitt";
+                src: url("font/Rokkitt-VariableFont_wght.ttf")
+                    format("truetype");
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                width: 1080px;
+                height: 1080px;
+                background-color: #000000;
+                color: #ffffff;
+                font-family: "Rokkitt", serif;
+                box-sizing: border-box;
+                overflow: hidden;
+            }
+
+            .flyer {
+                width: 1080px;
+                height: 1080px;
+                padding: 60px 80px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                position: relative;
+                box-sizing: border-box;
+                overflow: hidden;
+            }
+
+            .header {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                position: relative;
+                margin-top: 10px;
+            }
+
+            .title {
+                font-size: 107px;
+                font-weight: 700;
+                letter-spacing: 1.3px;
+                margin: 0;
+                text-transform: none;
+                text-align: center;
+            }
+
+            .fork {
+                position: absolute;
+                top: 180px;
+                height: 280px;/
+                z-index: 1;
+            }
+
+            .fork-left {
+                left: -28px;
+            }
+
+            .fork-right {
+                right: -48px;
+            }
+
+            .badge-container {
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+                margin-top: 20px;
+                width: 100%;
+                z-index: 2;
+            }
+
+            .badge {
+                font-weight: 800;
+                padding: 10px 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-sizing: border-box;
+                height: 100px;
+            }
+
+            .badge-white {
+                background-color: #ffffff;
+                color: #000000;
+                font-size: 66px;
+                letter-spacing: -1.3px;
+            }
+
+            .badge-red {
+                background-color: #e20019;
+                color: #000000;
+                font-size: 72px;
+                letter-spacing: 1px;
+            }
+
+            /* Edge-case: Badge für "bis" in Winter/Sommerpause */
+            .badge-small {
+                font-size: 50px;
+                padding: 10px 20px;
+            }
+
+            .timespan {
+                color: #e20019;
+                font-size: 50px;
+                font-weight: 800;
+                letter-spacing: 1.2px;
+                margin-top: 15px;
+                text-align: center;
+                z-index: 2;
+            }
+
+            .content-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 30px;
+                width: 100%;
+                flex-grow: 1;
+                margin: 40px 0;
+                z-index: 2;
+            }
+
+            /* Menü-Box für 2 Gerichte */
+            .menu-box {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                box-sizing: border-box;
+                padding: 30px 60px;
+                text-align: center;
+                min-height: 180px;
+                border-radius: 0px;
+            }
+
+            /* Große Menü-Box für Einzelgerichte oder Feiertage */
+            .menu-box-large {
+                min-height: 380px;
+                padding: 40px 80px;
+            }
+
+            .menu-box-red {
+                background-color: #e20019;
+                color: #000000;
+            }
+
+            .menu-box-white {
+                background-color: #ffffff;
+                color: #000000;
+            }
+
+            .menu-text {
+                font-size: 52px;
+                font-weight: 700;
+                letter-spacing: 0px;
+                line-height: 1.3;
+            }
+
+            .menu-text-large {
+                font-size: 60px;
+                font-weight: 700;
+                line-height: 1.4;
+            }
+
+            .vegi-icon {
+                position: absolute;
+                bottom: -8px;
+                right: -6px;
+                height: 70px;
+                width: 70px;
+            }
+
+            .footer {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                margin-bottom: 10px;
+                z-index: 2;
+            }
+
+            .extra-bar {
+                background-color: #e20019;
+                color: #000000;
+                width: 100%;
+                text-align: center;
+                font-size: 38px;
+                font-weight: 500;
+                letter-spacing: 0px;
+                padding: 12px 0;
+                margin-bottom: 25px;
+            }
+
+            .greeting-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .center-logo {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .greeting {
+                color: #e20019;
+                font-size: 55px;
+                font-weight: 700;
+                letter-spacing: 0.2px;
+            }
+
+            .clash-logo {
+                height: 70px;
+            }
+
+            .clash-logo-large {
+                height: 90px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flyer">
+            <img src="svg/fork-left.svg" class="fork fork-left" alt="" />
+            <img src="svg/fork-right.svg" class="fork fork-right" alt="" />
+
+            <div class="header">
+                <h1 class="title">Tagesmenü</h1>
+            </div>
+
+            <div class="badge-container">
+                {% if is_pause %}
+                <!-- Pausen-Layout (3 Badges) -->
+                <div class="badge badge-red">{{ pause_start }}</div>
+                <div class="badge badge-white badge-small">bis</div>
+                <div class="badge badge-red">{{ pause_end }}</div>
+                {% else %}
+                <!-- Standard-Layout (2 Badges) -->
+                <div class="badge badge-white">{{ day_name }}</div>
+                <div class="badge badge-red">{{ date_str }}</div>
+                {% endif %}
+            </div>
+
+            <!-- Uhrzeit (nur bei Standard) -->
+            {% if not is_pause %}
+            <div class="timespan">von 12.00 bis 15.00 Uhr</div>
+            {% endif %}
+
+            <div class="content-container">
+                {% if is_closed or is_pause %}
+                <!-- Edge-Case: Geschlossen oder Pause -->
+                <div class="menu-box menu-box-red menu-box-large">
+                    <div class="menu-text menu-text-large">
+                        {{ closed_reason | replace('\n', '<br />') | safe }}
+                    </div>
+                </div>
+                {% else %}
+                <!-- Standard: 1 oder 2 Gerichte -->
+                {% for item in menu_items %}
+                <div
+                    class="menu-box {% if item.is_vegetarian %}menu-box-white{% else %}menu-box-red{% endif %} {% if menu_items | length == 1 %}menu-box-large{% endif %}"
+                >
+                    <div class="menu-text">{{ item.dish_name }}</div>
+                    {% if item.is_vegetarian %}
+                    <img src="svg/vegi-logo.svg" class="vegi-icon" alt="Vegi" />
+                    {% endif %}
+                </div>
+                {% endfor %} {% endif %}
+            </div>
+
+            <div class="footer">
+                {% if not is_closed and not is_pause %}
+                <!-- Standard-Footer -->
+                <div class="extra-bar">
+                    Dazu wechselnde Eintöpfe, Suppen und Desserts
+                </div>
+                <div class="greeting-container">
+                    <span class="greeting">guten Hunger, Euer</span>
+                    <img
+                        src="svg/clash-logo.svg"
+                        class="clash-logo"
+                        alt="CLASH"
+                    />
+                </div>
+                {% elif is_closed and not is_pause %}
+                <!-- Feiertag-Footer -->
+                <div class="greeting-container">
+                    <span class="greeting">sorry, Euer</span>
+                    <img
+                        src="svg/clash-logo.svg"
+                        class="clash-logo"
+                        alt="CLASH"
+                    />
+                </div>
+                {% else %}
+                <!-- Pausen-Footer -->
+                <div class="greeting-container center-logo">
+                    <img
+                        src="svg/clash-logo.svg"
+                        class="clash-logo clash-logo-large"
+                        alt="CLASH"
+                    />
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </body>
+</html>
