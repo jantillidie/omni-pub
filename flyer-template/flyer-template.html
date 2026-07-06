@@ -6,7 +6,7 @@
         <style>
             @font-face {
                 font-family: "Rokkitt";
-                src: url("font/Rokkitt-VariableFont_wght.ttf")
+                src: url("file://{{ template_dir }}/font/Rokkitt-VariableFont_wght.ttf")
                     format("truetype");
             }
 
@@ -136,7 +136,7 @@
                 justify-content: center;
                 position: relative;
                 box-sizing: border-box;
-                padding: 30px 60px;
+                padding: 20px;
                 text-align: center;
                 min-height: 180px;
                 border-radius: 0px;
@@ -145,7 +145,7 @@
             /* Große Menü-Box für Einzelgerichte oder Feiertage */
             .menu-box-large {
                 min-height: 380px;
-                padding: 40px 80px;
+                padding: 20px;
             }
 
             .menu-box-red {
@@ -162,7 +162,7 @@
                 font-size: 52px;
                 font-weight: 700;
                 letter-spacing: 0px;
-                line-height: 1.3;
+                line-height: 1;
             }
 
             .menu-text-large {
@@ -230,8 +230,8 @@
     </head>
     <body>
         <div class="flyer">
-            <img src="svg/fork-left.svg" class="fork fork-left" alt="" />
-            <img src="svg/fork-right.svg" class="fork fork-right" alt="" />
+            <img src="file://{{ template_dir }}/svg/fork-left.svg" class="fork fork-left" alt="" />
+            <img src="file://{{ template_dir }}/svg/fork-right.svg" class="fork fork-right" alt="" />
 
             <div class="header">
                 <h1 class="title">Tagesmenü</h1>
@@ -271,7 +271,7 @@
                 >
                     <div class="menu-text">{{ item.dish_name }}</div>
                     {% if item.is_vegetarian %}
-                    <img src="svg/vegi-logo.svg" class="vegi-icon" alt="Vegi" />
+                    <img src="file://{{ template_dir }}/svg/vegi-logo.svg" class="vegi-icon" alt="Vegi" />
                     {% endif %}
                 </div>
                 {% endfor %} {% endif %}
@@ -286,7 +286,7 @@
                 <div class="greeting-container">
                     <span class="greeting">guten Hunger, Euer</span>
                     <img
-                        src="svg/clash-logo.svg"
+                        src="file://{{ template_dir }}/svg/clash-logo.svg"
                         class="clash-logo"
                         alt="CLASH"
                     />
@@ -296,7 +296,7 @@
                 <div class="greeting-container">
                     <span class="greeting">sorry, Euer</span>
                     <img
-                        src="svg/clash-logo.svg"
+                        src="file://{{ template_dir }}/svg/clash-logo.svg"
                         class="clash-logo"
                         alt="CLASH"
                     />
@@ -305,7 +305,7 @@
                 <!-- Pausen-Footer -->
                 <div class="greeting-container center-logo">
                     <img
-                        src="svg/clash-logo.svg"
+                        src="file://{{ template_dir }}/svg/clash-logo.svg"
                         class="clash-logo clash-logo-large"
                         alt="CLASH"
                     />
