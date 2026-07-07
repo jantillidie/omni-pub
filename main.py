@@ -1,16 +1,10 @@
 from calendar import day_name
-import sys
-from pathlib import Path
 import base64
 import streamlit as st
 import pandas as pd
 from typing import cast
+
 from services.flyer_generator_service import FlyerGeneratorService
-
-_root = Path(__file__).resolve().parent
-if str(_root) not in sys.path:
-    sys.path.insert(0, str(_root))
-
 from services.vision_llm_service import VisionLLMService
 from services.wordpress_service import send_menu_to_wordpress
 from models import WeeklyMenu, WordPressPayload
