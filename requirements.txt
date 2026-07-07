@@ -1,11 +1,15 @@
 # Web-UI & Bildverarbeitung
 streamlit>=1.58.0
 pillow>=12.2.0
+pandas >=3.0.3
+jinja2 >=3.1.6
+html2image >= 2.0.7
 
 # KI & API-Schnittstellen
 openai>=2.44.0
 requests>=2.34.2
-python-dotenv>=1.2.2
+
+# python-dotenv>=1.2.2
 
 # Datenvalidierung
 pydantic>=2.13.4
