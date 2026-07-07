@@ -1,9 +1,11 @@
+from calendar import day_name
 import sys
 from pathlib import Path
 import base64
 import streamlit as st
 import pandas as pd
 from typing import cast
+from services.flyer_generator_service import FlyerGeneratorService
 
 _root = Path(__file__).resolve().parent
 if str(_root) not in sys.path:
@@ -105,13 +107,6 @@ if "menu" in st.session_state:
     col1.metric("Gültig ab", weekly_menu.menu_start_datetime)
     col2.metric("Gültig bis", weekly_menu.menu_end_datetime)
 
-    # Tagesmenüs zeigen
-    # for day in weekly_menu.daily_menus:
-    #     with st.expander(f"📅 {day.weekday} — {day.menu_date}", expanded=True):
-    #         for item in day.menu_items:
-    #             icon = "🌱" if item.is_vegetarian else "🥩"
-    #             st.markdown(f"{icon} **{item.dish_name}**")
-
     st.subheader("📋 Gerichte in der Tabelle bearbeiten")
     
     df = menu_to_dataframe(weekly_menu)
@@ -139,11 +134,6 @@ if "menu" in st.session_state:
             ),
         },
     )
-
-
-    # JSON zeigen
-    # with st.expander("🔧 Rohdaten (JSON)"):
-    #     st.json(dataframe_to_menu(edited_df).model_dump())
 
     # An WordPress Rest API senden
     st.divider()
@@ -175,6 +165,72 @@ if "menu" in st.session_state:
             except Exception as e:
                 st.error(f"⚠️ Validierung fehlgeschlagen: {e}")
                 st.info("Korrigiere die Tabelle oben und klicke erneut auf Senden.")
+
+    st.divider()
+    st.header("Social Media Flyer generieren")
+    st.markdown(
+        "Generiere Tagesmenü Flyer (1080x1080px) für die Social Media Kanäle"
+    )
+
+    if st.button("Flyer für die Woche generieren", type="secondary"):
+        with st.spinner("Generiere Flyer..."):
+            try:
+                current_menu = dataframe_to_menu(edited_df)
+
+                generator = FlyerGeneratorService()
+                flyer_paths = generator.generate_all_flyers(current_menu)
+
+                st.session_state["flyer_paths"] = flyer_paths
+                st.success("Flyer erfolgreich generiert und zwischengespeichert")
+            except Exception as e:
+                st.error(f"⚠️ Fehler bei der Flyer-Generierung: {e}")
+
+    if "flyer_paths" in st.session_state:
+        flyer_paths = st.session_state["flyer_paths"]
+
+        st.subheader("Flyer und Texte prüfen")
+
+        tabs = st.tabs(list(flyer_paths.keys()))
+
+        current_menu = dataframe_to_menu(edited_df)
+
+        for tab, (day_name, img_path) in zip(tabs, flyer_paths.items()):
+            with tab:
+                col1, col2 = st.columns([1, 1])
+
+                with col1:
+                    st.image(img_path, width="content")
+
+                with col2:
+                    st.markdown(f"Social Media Post für {day_name}")
+
+                    day_menu = next(d for d in current_menu.daily_menus if d.weekday == day_name)
+
+                    dishes_text = ""
+                    for item in day_menu.menu_items:
+                        icon = "🌱" if item.is_vegetarian else "🥩"
+                        dishes_text += f"\n{icon} {item.dish_name}"
+
+                    default_text = (
+                        f"Unser Tagesmenü für {day_name}, den {day_menu.menu_date[6:8]}.{day_menu.menu_date[4:6]}.:\n"
+                        f"{dishes_text}\n\n"
+                        f"Mittagstisch von 12.00 bis 15.00 Uhr.\n"
+                        f"Die ganze Wochenkarte findet ihr hier: https://omni-pub-wp-site.indomea.de/#karte\n"
+                        f"#tagesmenü #clash #kreuzberg #food #mittagstisch"
+                    )
+
+                    post_text = st.text_area(
+                        "Post-Text anpassen",
+                        value=default_text,
+                        height=250,
+                        key=f"text_{day_name}"
+                    )
+
+                    st.button(
+                        f"⬆️ Auf Mastodon & Bluesky posten ({day_name})",
+                        key=f"btn_{day_name}",
+                        disabled=True
+                    )
 
 else:
     st.info("⬆️ Bild hochladen und auf „Bild analysieren“ klicken, um zu starten.")
