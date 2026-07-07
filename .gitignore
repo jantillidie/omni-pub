@@ -395,7 +395,5 @@ queue/
 tmp/
 
 .envrc
-tests/vision_llm_output.json
-tests/test_vision_llm.py
-tests/test_payload.json
-tests/test_json_to_wp.py
+
+tests/
