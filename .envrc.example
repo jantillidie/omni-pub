@@ -8,8 +8,8 @@
 # ==============================================================================
 export WP_USERNAME="admin_local"
 export WP_SITE_URL="http://localhost:8080"
-export API_URL="https://api.staging.example.com"
-export LOG_LEVEL="debug"
+export BLUESKY_HANDLE="accountname.bsky.social"
+export MASTODON_BASE_URL="https://mastodon.social"
 
 # ==============================================================================
 # 2. PRIVATE SECRETS (Pulled securely from KeePassXC on the fly)
