@@ -11,6 +11,7 @@ requests>=2.34.2
 atproto >=0.0.69
 Mastodon.py >=2.2.1
 apscheduler >=3.11.3
+sqlalchemy >=2.0.51
 
 # python-dotenv>=1.2.2
 
