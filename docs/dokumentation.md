@@ -82,7 +82,7 @@ Foto-Upload → VisionLLMService → WeeklyMenu (Pydantic)
 ### Setup
 
 ```sh
-git clone <repo-url>
+git clone git@github.com:jantillidie/omni-pub.git
 cd omni-pub
 python -m venv venv
 source venv/bin/activate
