@@ -166,7 +166,7 @@ if "menu" in st.session_state:
                     payload = WordPressPayload(
                         title=title,
                         status="publish",
-                        acf=weekly_menu,
+                        acf=validated_menu,
                     )
     
                     status_code = send_menu_to_wordpress(payload.model_dump())
@@ -224,7 +224,7 @@ if "menu" in st.session_state:
             "🧪 Test-Modus: alle Posts heute planen",
             value=False,
             help="Überschreibt das Post-Datum für alle Tage mit dem heutigen Tag. "
-                 "Nur für Tests/Präsentation — die Flyer und Texte bleiben unverändert.",
+                 "Nur für Tests/Präsentation: die Flyer und Texte bleiben unverändert.",
         )
         test_start_in_minutes = 3
         if test_mode:
